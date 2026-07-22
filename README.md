@@ -1,315 +1,368 @@
-# Universal OSINT Tool v1.0
+# Advanced OSINT Tool v2.0 - Enterprise Edition
 
-**Advanced Information Search System**
+![OSINT](https://img.shields.io/badge/OSINT-Tool-blue)
+![Version](https://img.shields.io/badge/Version-2.0-green)
+![Legal](https://img.shields.io/badge/Legal-Public%20Sources-brightgreen)
+![Python](https://img.shields.io/badge/Python-3.8+-blue)
 
-Полнофункциональная программа для поиска информации о пользователях по различным идентификаторам.
+## 📋 Overview
 
-## Возможности
+**Advanced OSINT Tool v2.0** is an enterprise-grade intelligence gathering platform that searches across **18+ legal public sources** for comprehensive information.
 
-✅ Поиск по номерам телефонов
-✅ Поиск по ФИО
-✅ Поиск по номерам автомобилей
-✅ Поиск по номерам паспортов
-✅ Поиск по email-адресам
-✅ Поиск по IP-адресам
-✅ Поиск по VIN номерам
-✅ Поиск в социальных сетях
-✅ Проверка утечек данных
-✅ Анализ судебных дел
-✅ Поиск в реестрах компаний
-✅ Проверка информации об автомобилях
-✅ Проверка паспортных данных
-✅ Анализ новостных архивов
-✅ Проверка IP геолокации
+> **Important:** This tool uses ONLY public, legal, and officially available sources. All operations are completely transparent and legitimate.
 
-## Установка
+---
+
+## 🎯 Key Features
+
+### 🔍 18+ Legal Public Sources
+
+- **Company Registries** - EGRUL, Rosreestr, company databases
+- **Court Records** - Federal courts, judicial decisions
+- **News & Media** - Archives, press releases, media databases
+- **Real Estate** - Property registry, cadastre data
+- **Social Media** - VK, Telegram, LinkedIn, GitHub (public data)
+- **Domain & Web** - WHOIS, DNS, SSL, Certificate Transparency
+- **Financial Data** - Stock ownership, disclosures
+- **Data Breaches** - HaveIBeenPwned, breach archives
+- **Government** - Parliament members, contracts
+- **Sanctions** - UN, OFAC, EU sanctions lists
+- **Education** - University and education records
+- **Health** - Public health statistics
+- **IP Geolocation** - Location data
+- **Forensics** - DNS history, certificates
+- **And more...**
+
+### 💻 Three Interfaces
+
+1. **Console Application** - Interactive CLI
+2. **Web API** - RESTful endpoints
+3. **Telegram Bot** - Chat interface
+
+---
+
+## ⚡ Quick Start
+
+### Installation
 
 ```bash
+# Clone repository
 git clone https://github.com/Anonim1346/osint-tool.git
 cd osint-tool
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-## Использование
+### Usage
 
-### Консольное приложение
-
+#### Console
 ```bash
 python main.py
 ```
 
-### Примеры запросов
-
-**По номеру телефона:**
-```
-+7 (999) 999-99-99
-79999999999
+#### Web API
+```bash
+python api_server.py
+# Access at http://localhost:5000
 ```
 
-**По ФИО:**
-```
-Иван Иванов
-John Doe
-```
-
-**По номеру машины:**
-```
-А123БВ77
-ABC1234
+#### Telegram Bot
+```bash
+export TELEGRAM_BOT_TOKEN="your_token_here"
+python telegram_bot.py
 ```
 
-**По номеру паспорта:**
+---
+
+## 📖 Documentation
+
+### Supported Query Types
+
 ```
-1234567890
+📧 EMAIL ADDRESS
+  user@example.com
+  → Data breaches, social media, news
+
+🌐 DOMAIN NAME
+  example.com
+  → WHOIS, DNS, SSL, CT logs
+
+🔢 IP ADDRESS
+  192.168.1.1
+  → Geolocation, reverse DNS, forensics
+
+🏢 COMPANY INN (Russian)
+  7711111111
+  → EGRUL, court records, financial data
+
+👤 PERSON NAME
+  Ivan Ivanov
+  → Court cases, news, social media, government
+
+💻 GITHUB USERNAME
+  username
+  → GitHub profile, repositories, social media
+
+🏪 COMPANY NAME
+  Company Name
+  → Registries, court, news, financial
 ```
 
-**По email:**
-```
-user@example.com
+### API Endpoints
+
+```bash
+# Search
+POST /api/v2/search
+Body: {"query": "search_query"}
+
+# Get sources
+GET /api/v2/sources
+
+# Tool information
+GET /api/v2/info
+
+# Health check
+GET /health
 ```
 
-**По IP адресу:**
+### Console Commands
+
 ```
-192.168.1.1
+help, h     - Show help menu
+sources, s  - List all available sources
+exit, q     - Exit program
 ```
 
-## Архитектура
+---
+
+## 🏗️ Project Structure
 
 ```
 osint-tool/
-├── main.py                 # Главный входной файл
-├── core/
-│   ├── __init__.py
-│   ├── osint_engine.py     # Основной поисковый движок
-│   ├── data_sources.py     # Интеграции с БД и API
-│   ├── ui.py               # Пользовательский интерфейс
-│   ├── config.py           # Конфигурация
-│   ├── logger.py           # Логирование
-│   ├── database.py         # Работа с БД
-│   ├── api_handler.py      # Управление API
-│   └── cache.py            # Кеширование результатов
-├── modules/
-│   ├── __init__.py
-│   ├── phone_module.py     # Модуль поиска по телефонам
-│   ├── name_module.py      # Модуль поиска по ФИО
-│   ├── car_module.py       # Модуль поиска по номерам машин
-│   ├── passport_module.py  # Модуль поиска по паспортам
-│   ├── email_module.py     # Модуль поиска по email
-│   ├── ip_module.py        # Модуль поиска по IP
-│   ├── socnet_module.py    # Модуль поиска в соцсетях
-│   └── breach_module.py    # Модуль проверки утечек
-├── integrations/
-│   ├── __init__.py
-│   ├── viber.py            # Интеграция Viber
-│   ├── telegram.py         # Интеграция Telegram
-│   ├── vk.py               # Интеграция VK
-│   ├── instagram.py        # Интеграция Instagram
-│   ├── facebook.py         # Интеграция Facebook
-│   ├── twitter.py          # Интеграция Twitter
-│   ├── linkedin.py         # Интеграция LinkedIn
-│   ├── hlr.py              # HLR Lookup
-│   ├── iplookup.py         # IP Lookup
-│   ├── dataleak.py         # Проверка утечек
-│   └── court.py            # Судебные реестры
-├── utils/
-│   ├── __init__.py
-│   ├── validators.py       # Валидация данных
-│   ├── parsers.py          # Парсеры данных
-│   ├── formatters.py       # Форматирование результатов
-│   └── helpers.py          # Вспомогательные функции
-├── data/
-│   ├── databases/          # Локальные БД
-│   └── cache/              # Кеш результатов
-├── logs/                   # Логи программы
-├── config.json             # Конфигурация
-├── requirements.txt        # Зависимости
-└── README.md               # Документация
+├── main.py                   # Console entry point
+├── api_server.py             # API entry point
+├── telegram_bot.py           # Telegram entry point
+├── advanced_main.py          # Console implementation
+├── advanced_api_server.py    # API implementation
+├── advanced_telegram_bot.py  # Telegram implementation
+├── requirements.txt          # Dependencies
+├── README.md                 # This file
+├── ADVANCED_README.md        # Detailed documentation
+└── core/
+    ├── advanced_engine.py    # Search engine
+    ├── legal_sources.py      # 18+ public sources
+    ├── ui.py                 # User interface
+    ├── logger.py             # Logging
+    └── config.py             # Configuration
 ```
 
-## Структура данных результатов
+---
 
-```json
-{
-  "query": "input_data",
-  "query_type": "phone|name|car|passport|email|ip|vin",
-  "results": {
-    "phone_info": {
-      "phone": "+7999999999",
-      "operator": "Megafon",
-      "status": "active",
-      "region": "Moscow"
-    },
-    "person_info": {
-      "name": "John Doe",
-      "age": 35,
-      "address": "Moscow",
-      "phones": ["79999999999"],
-      "emails": ["user@example.com"]
-    },
-    "social_media": {
-      "vkontakte": [{"id": "123456", "name": "John Doe", "verified": false}],
-      "telegram": [{"username": "@username", "verified": true}],
-      "instagram": [{"username": "username", "followers": 5000}]
-    },
-    "car_info": {
-      "number": "А123БВ77",
-      "owner": "John Doe",
-      "model": "Toyota Camry",
-      "year": 2020,
-      "status": "registered"
-    },
-    "passport_info": {
-      "number": "1234567890",
-      "holder": "John Doe",
-      "birthdate": "1990-01-01",
-      "issued": "2015-05-15",
-      "expires": "2025-05-15"
-    },
-    "email_info": {
-      "email": "user@example.com",
-      "in_breaches": true,
-      "breaches": ["LinkedIn", "Facebook"]
-    },
-    "ip_info": {
-      "ip": "192.168.1.1",
-      "country": "Russia",
-      "city": "Moscow",
-      "isp": "Rostelecom",
-      "coordinates": {"lat": 55.7558, "lon": 37.6173}
-    }
-  }
-}
+## 📊 Sources Information
+
+### Government & Official
+- Russian Federal Tax Service (EGRUL)
+- Rosreestr (Real Estate Registry)
+- Federal Courts System
+- Parliament Registry
+
+### Financial
+- Stock market data
+- Financial disclosures
+- Company information
+
+### Internet & Technical
+- WHOIS registries
+- DNS services
+- Certificate Transparency logs
+- IP geolocation
+
+### Media & News
+- News archives
+- Press releases
+- Media databases
+
+### Social Media (Public)
+- VKontakte public profiles
+- Telegram public channels
+- LinkedIn public profiles
+- GitHub public repositories
+
+### Compliance
+- UN sanctions lists
+- OFAC lists
+- EU sanctions
+- International blacklists
+
+### Security
+- HaveIBeenPwned
+- Data breach archives
+- Public paste sites
+
+---
+
+## 🔒 Legal & Compliance
+
+### ✅ What This Tool Does
+- Searches ONLY public sources
+- Uses official APIs and portals
+- Respects robots.txt and TOS
+- Provides transparent data retrieval
+- Follows GDPR and data protection laws
+
+### ❌ What This Tool Does NOT Do
+- Access private/restricted databases
+- Perform hacking or unauthorized access
+- Bypass authentication or security
+- Violate anyone's privacy
+- Perform illegal activities
+
+### ⚖️ Legal Notice
+
+**IMPORTANT:** This tool is for legitimate research, due diligence, and intelligence gathering purposes only. Users are solely responsible for ensuring compliance with all applicable laws and regulations in their jurisdiction. Misuse of this tool for illegal purposes is prohibited.
+
+---
+
+## 💼 Use Cases
+
+- **Due Diligence** - Verify business partners and contractors
+- **Fraud Detection** - Identify suspicious activities
+- **Background Checks** - Employee and vendor verification
+- **Competitive Intelligence** - Market research
+- **Risk Assessment** - Identify potential risks
+- **Investigative Journalism** - Public interest research
+- **Academic Research** - Information gathering
+- **Compliance Checking** - Regulatory verification
+
+---
+
+## 📦 Requirements
+
+```
+Python 3.8+
+requests>=2.28.0
+flask>=2.0.0
+flask-cors>=3.0.0
+python-telegram-bot>=13.0
+python-dotenv>=0.19.0
 ```
 
-## Конфигурация
+---
 
-Отредактируйте `config.json`:
+## 🔧 Configuration
 
-```json
-{
-  "timeout": 10,
-  "retries": 3,
-  "output_format": "json",
-  "log_level": "INFO",
-  "database": {
-    "enabled": true,
-    "path": "data/osint.db"
-  },
-  "apis": {
-    "enable_hlr": true,
-    "enable_viber": true,
-    "enable_telegram": true,
-    "enable_vk": true,
-    "enable_instagram": true,
-    "enable_facebook": true,
-    "enable_twitter": true,
-    "enable_ip_lookup": true,
-    "enable_court": true
-  },
-  "api_keys": {
-    "hlr_api_key": "your_api_key",
-    "ip_lookup_key": "your_api_key",
-    "breach_check_key": "your_api_key"
-  }
-}
-```
-
-## Модули и их функции
-
-### Phone Module
-- HLR Lookup (оператор, статус, регион)
-- Проверка наличия в Viber/WhatsApp
-- Поиск в публичных справочниках
-- История активности
-
-### Name Module
-- Поиск в судебных реестрах
-- Поиск в реестрах компаний
-- Поиск в новостных архивах
-- Анализ конфликтов интересов
-
-### Car Module
-- Поиск в реестрах ГИБДД
-- Декодирование VIN
-- История ДТП
-- Информация об владельце
-
-### Passport Module
-- Проверка в реестре МВД
-- Анализ валидности
-- История паспорта
-- Данные владельца
-
-### Email Module
-- Проверка утечек (HaveIBeenPwned)
-- Анализ активности
-- Связанные аккаунты
-- История использования
-
-### IP Module
-- Геолокация
-- Проверка угроз
-- История использования
-- WHOIS информация
-
-### Social Media Module
-- VKontakte
-- Telegram
-- Instagram
-- Facebook
-- Twitter
-- LinkedIn
-
-## Интеграции
-
-- **HLR Lookup API** - получение информации об операторе мобильной сети
-- **Viber API** - проверка наличия номера в Viber
-- **Telegram Bot API** - поиск в Telegram
-- **VK API** - поиск профилей ВКонтакте
-- **Instagram API** - поиск профилей
-- **Facebook API** - поиск профилей
-- **Twitter API** - поиск аккаунтов
-- **LinkedIn API** - поиск профилей
-- **IP Geolocation API** - геолокация IP адресов
-- **HaveIBeenPwned API** - проверка утечек
-- **WHOIS API** - информация о доменах
-
-## Примеры использования
-
-### Как Python модуль
-
-```python
-from core.osint_engine import OSINTEngine
-
-engine = OSINTEngine()
-results = engine.search("+79999999999")
-print(results)
-```
-
-### Как REST API
+Create `.env` file in project root:
 
 ```bash
-curl -X POST http://localhost:5000/search \
+# Telegram
+TELEGRAM_BOT_TOKEN=your_token_here
+
+# API
+DEBUG=False
+PORT=5000
+HOST=0.0.0.0
+
+# Logging
+LOG_LEVEL=INFO
+```
+
+---
+
+## 🚀 Performance
+
+- **Multi-source searching** - Parallel API queries
+- **Result caching** - Improved response times
+- **Optimized queries** - Efficient API usage
+- **Large datasets** - Handles extensive results
+- **Rate limiting** - Respects API limits
+
+---
+
+## 📝 Examples
+
+### Console Example
+```bash
+$ python main.py
+============================================================
+  ADVANCED OSINT TOOL v2.0 - ENTERPRISE EDITION
+  Legal Public Sources Intelligence Gathering
+============================================================
+
+[OSINT] Enter search query: user@example.com
+
+[*] Processing query across all legal public sources...
+
+============================================================
+OSINT SEARCH RESULTS - ADVANCED
+============================================================
+
+Query: user@example.com
+Type: email
+Timestamp: 2024-01-15 10:30:45
+
+Sources Searched: Data Breaches, Social Media, News
+
+▶ DATA_BREACHES
+  Source: HaveIBeenPwned
+  Breaches found: Yes
+```
+
+### API Example
+```bash
+curl -X POST http://localhost:5000/api/v2/search \
   -H "Content-Type: application/json" \
-  -d '{"query": "+79999999999"}'
+  -d '{"query": "example.com"}'
 ```
 
-### Как Telegram Bot
-
+### Telegram Bot
 ```
-/start
-/search +79999999999
-/results
+Just send any query to the bot and it searches all sources!
 ```
 
-## Лицензия
+---
 
-Для использования только в рамках закона вашей страны.
+## 🤝 Contributing
 
-## Дисклеймер
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-⚠️ Данный инструмент предназначен ТОЛЬКО для легального использования в соответствии с законодательством вашей страны. Автор не несет ответственность за незаконное использование программы.
+---
 
-## Поддержка
+## 📞 Support
 
-Для вопросов и предложений создавайте Issues в репозитории.
+- Check `/help` command in console
+- Review `ADVANCED_README.md`
+- Visit API docs at `/api/v2/info`
+- Check logs in `logs/` directory
+
+---
+
+## 📄 License
+
+This project is provided for legal and legitimate use only.
+
+---
+
+## ⚠️ Disclaimer
+
+This tool is provided as-is for educational and research purposes. Users are solely responsible for ensuring their use complies with all applicable laws and regulations. The authors assume no liability for misuse or illegal activities.
+
+---
+
+## 👨‍💻 About
+
+**Advanced OSINT Tool v2.0** - Enterprise Intelligence Gathering Platform
+
+- **Legal** - Uses only public sources
+- **Comprehensive** - 18+ integrated sources
+- **Professional** - Enterprise-grade code
+- **Transparent** - Open and honest approach
+
+---
+
+**Made with ❤️ for legitimate research and intelligence gathering**

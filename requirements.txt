@@ -27,6 +27,3 @@ maxminddb>=2.2.0
 whois>=0.9.7
 celery>=5.1.0
 redis>=4.1.0
-sqlite3
-pytest>=7.0.0
-pytest-asyncio>=0.18.0

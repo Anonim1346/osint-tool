@@ -1,94 +1,92 @@
 #!/bin/bash
-# Installation and setup script
 
-echo "╔════════════════════════════════════╗"
-echo "║    OSINT Tool Installation         ║"
-echo "╚════════════════════════════════════╝"
+# Advanced OSINT Tool v2.0 - Installation Script
+
+echo "================================================"
+echo "   Advanced OSINT Tool v2.0 - Installer"
+echo "   Legal Public Sources Intelligence"
+echo "================================================"
 echo ""
 
-# Create directories
-echo "[*] Creating directories..."
-mkdir -p data/databases
-mkdir -p data/cache
-mkdir -p logs
-mkdir -p core
-mkdir -p utils
-mkdir -p integrations
-mkdir -p modules
-echo "[✓] Directories created"
-
-# Install Python dependencies
+# Check Python version
+echo "[*] Checking Python version..."
+python_version=$(python3 --version 2>&1 | awk '{print $2}')
+echo "[+] Python version: $python_version"
 echo ""
-echo "[*] Installing Python dependencies..."
+
+# Check pip
+echo "[*] Checking pip..."
+if ! command -v pip3 &> /dev/null; then
+    echo "[!] pip3 not found. Installing..."
+    sudo apt-get install python3-pip
+fi
+echo "[+] pip found"
+echo ""
+
+# Create virtual environment
+echo "[*] Creating virtual environment..."
+python3 -m venv venv
+echo "[+] Virtual environment created"
+echo ""
+
+# Activate virtual environment
+echo "[*] Activating virtual environment..."
+source venv/bin/activate
+echo "[+] Virtual environment activated"
+echo ""
+
+# Upgrade pip
+echo "[*] Upgrading pip..."
+pip install --upgrade pip
+echo "[+] pip upgraded"
+echo ""
+
+# Install requirements
+echo "[*] Installing dependencies..."
 pip install -r requirements.txt
-echo "[✓] Dependencies installed"
-
-# Create config.json
+echo "[+] Dependencies installed"
 echo ""
-echo "[*] Creating configuration file..."
-cat > config.json << 'EOF'
-{
-  "timeout": 10,
-  "retries": 3,
-  "output_format": "json",
-  "log_level": "INFO",
-  "database": {
-    "enabled": true,
-    "path": "data/osint.db"
-  },
-  "apis": {
-    "enable_hlr": false,
-    "enable_viber": true,
-    "enable_telegram": true,
-    "enable_vk": true,
-    "enable_instagram": true,
-    "enable_facebook": true,
-    "enable_twitter": true,
-    "enable_linkedin": true,
-    "enable_ip_lookup": true,
-    "enable_breach_check": true
-  },
-  "api_keys": {
-    "hlr_api_key": "your_api_key_here",
-    "ip_lookup_key": "your_api_key_here",
-    "breach_check_key": "your_api_key_here",
-    "vk_token": "your_token_here",
-    "telegram_token": "your_token_here",
-    "instagram_token": "your_token_here",
-    "facebook_token": "your_token_here",
-    "twitter_token": "your_token_here",
-    "linkedin_token": "your_token_here",
-    "whois_api_key": "your_api_key_here"
-  }
-}
-EOF
-echo "[✓] Configuration file created"
+
+# Create logs directory
+echo "[*] Creating directories..."
+mkdir -p logs
+mkdir -p data
+echo "[+] Directories created"
+echo ""
 
 # Create .env file
-echo ""
-echo "[*] Creating .env file..."
-cat > .env << 'EOF'
-# OSINT Tool Configuration
+if [ ! -f .env ]; then
+    echo "[*] Creating .env file..."
+    cat > .env << EOF
+# Advanced OSINT Tool v2.0 Configuration
+
+# Telegram Bot
+TELEGRAM_BOT_TOKEN=your_token_here
+
+# API Configuration
 DEBUG=False
 PORT=5000
-TIMEOUT=10
+HOST=0.0.0.0
+
+# Logging
 LOG_LEVEL=INFO
-
-# API Keys (optional)
-TELEGRAM_BOT_TOKEN=your_token_here
-HLR_API_KEY=your_key_here
-IP_LOOKUP_KEY=your_key_here
-BREACH_CHECK_KEY=your_key_here
 EOF
-echo "[✓] .env file created"
-
+    echo "[+] .env file created"
+    echo "[!] Please update .env with your configuration"
+fi
 echo ""
-echo "[✓] Installation complete!"
+
+echo "================================================"
+echo "   Installation Complete!"
+echo "================================================"
+echo ""
+echo "Next steps:"
+echo "  1. Edit .env file with your configuration"
+echo "  2. Run: source venv/bin/activate"
+echo "  3. Run: python main.py"
 echo ""
 echo "Usage:"
-echo "  1. Console:     python main.py"
-echo "  2. Web API:     python api_server.py"
-echo "  3. Telegram:    python telegram_bot.py"
-echo ""
-echo "First, update config.json with your API keys!"
+echo "  Console:    python main.py"
+echo "  API:        python api_server.py"
+echo "  Telegram:   python telegram_bot.py"
 echo ""
